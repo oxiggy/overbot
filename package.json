@@ -1,10 +1,19 @@
 {
   "name": "overbot",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "overwatch bot for discord",
+  "main": "node/index.js",
   "scripts": {
+    "start": "node node/index.js",
+    "start-dev": "nodemon node/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "oxiggy",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "discord.js": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
+  }
 }
