@@ -1,6 +1,6 @@
 {
   "name": "overbot",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "overwatch bot for discord",
   "main": "node/index.js",
   "scripts": {

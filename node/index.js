@@ -9,19 +9,19 @@ const manifest= require('../package.json');
 const DISCORD_TOKEN= process.env.DISCORD_TOKEN;
 
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const discord = new Discord.Client();
 
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+discord.on('ready', () => {
+    console.log(`Logged in as ${discord.user.tag}!`);
 });
 
-client.on('message', msg => {
+discord.on('message', msg => {
     if (msg.content === 'ping') {
         msg.reply('Pong!');
     }
 });
 
-client.login(DISCORD_TOKEN);
+discord.login(DISCORD_TOKEN);
 
 
 
@@ -44,6 +44,15 @@ app.use(AppLogger());
 api.get('/api/v1', async (context) => {
     context.body= {
         version: manifest.version,
+    };
+});
+
+api.get('/api/v1/discord', async (context) => {
+    context.body= {
+        ping: discord.ping,
+        readyTimestamp: discord.readyTimestamp,
+        status: discord.status,
+        uptime: discord.uptime,
     };
 });
 
