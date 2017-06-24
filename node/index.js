@@ -56,6 +56,14 @@ api.get('/api/v1/discord', async (context) => {
     };
 });
 
+api.get('/api/v1/process', async (context) => {
+    context.body= {
+        pid: process.pid,
+        ppid: process.ppid,
+        memoryUsage: process.memoryUsage(),
+    };
+});
+
 app.use(api.routes());
 
 app.listen(HTTP_PORT, () => console.log(`Listening on port ${HTTP_PORT}!`));
