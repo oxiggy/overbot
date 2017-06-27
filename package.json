@@ -1,6 +1,6 @@
 {
   "name": "overbot",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "overwatch bot for discord",
   "main": "node/index.js",
   "scripts": {
@@ -15,7 +15,9 @@
     "koa": "latest",
     "koa-logger": "latest",
     "koa-router": "latest",
-    "koa-static": "latest"
+    "koa-static": "latest",
+    "request": "latest",
+    "request-promise": "latest"
   },
   "devDependencies": {
     "nodemon": "latest"
