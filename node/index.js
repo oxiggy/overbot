@@ -87,26 +87,27 @@ function handleStatsCommand(message) {
         if (!battleTag[0] || !battleTag[1]) {
             message.reply('неверный формат BattleTag');
         } else {
-            request(`http://ow-api.herokuapp.com/profile/pc/eu/${battleTag[0]}-${battleTag[1]}'`)
+            request({
+                uri: `http://ow-api.herokuapp.com/profile/pc/eu/${battleTag[0]}-${battleTag[1]}'`,
+                json: true
+            })
                 .then(function (data) {
-                    try {
-                        data= JSON.parse(data)
-                        let message= ''
-                        message+= '' + data.username + ' (' + data.level + ' уровень, '+ data.competitive.rank +' ранг)\n'
-                        message+= '\n'
-                        message+= 'Быстрые игры:\n'
-                        message+= '— побед: '+ data.games.quickplay.won +'\n'
-                        message+= '— потрачено: '+ data.playtime.quickplay +'\n'
-                        message+= '\n'
-                        message+= 'Текущий сезон ранкеда:\n'
-                        message+= '— побед: '+ data.games.competitive.won +'\n'
-                        message+= '— поражений: '+ data.games.competitive.lost +'\n'
-                        message+= '— ничьих: '+ data.games.competitive.draw +'\n'
-                        message+= '— потрачено: '+ data.playtime.competitive +''
-                        message.reply(message);
-                    } catch (err) {
-                        // что-то пошло не так
-                    }
+                    let content= ''
+                    content+= '' + data.username + ' (' + data.level + ' уровень, '+ data.competitive.rank +' ранг)\n'
+                    content+= '\n'
+                    content+= 'Быстрые игры:\n'
+                    content+= '— побед: '+ data.games.quickplay.won +'\n'
+                    content+= '— потрачено: '+ data.playtime.quickplay +'\n'
+                    content+= '\n'
+                    content+= 'Текущий сезон ранкеда:\n'
+                    content+= '— побед: '+ data.games.competitive.won +'\n'
+                    content+= '— поражений: '+ data.games.competitive.lost +'\n'
+                    content+= '— ничьих: '+ data.games.competitive.draw +'\n'
+                    content+= '— потрачено: '+ data.playtime.competitive +''
+                    message.reply(content);
+                })
+                .catch(function () {
+                    message.reply('что-то пошло не так');
                 })
             ;
         }
