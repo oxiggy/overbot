@@ -18,27 +18,35 @@ discord.on('ready', () => {
 discord.on('message', message => {
     if (message.content === 'ping') {
         message.reply('Pong!');
+        return
     }
     if (message.content.toLowerCase() === 'привет') {
         message.channel.send(`привет, ${message.author.username}`);
+        return
     }
     if (message.content.toLowerCase().indexOf('я') === 0 || message.content.toLowerCase().indexOf(' я ') >= 0 || message.content.toLowerCase().indexOf('совет') >= 0) {
         handleAdvice(message);
+        return
     }
     if (message.content.toLowerCase().indexOf('говнобот') >= 0) {
         message.channel.send(':rage:');
+        return
     }
     if (message.content.toLowerCase().indexOf('бот') >= 0) {
         message.channel.send(':smiley:');
+        return
     }
-    if (message.content.toLowerCase().indexOf('проигралили') >= 0 || message.content.toLowerCase().indexOf('слили') >= 0 || message.content.toLowerCase().indexOf('заруинили') >= 0  || message.content.toLowerCase().indexOf('проигралил') >= 0 || message.content.toLowerCase().indexOf('слил') >= 0 ) {
+    if (message.content.toLowerCase().indexOf('проиграл') >= 0 || message.content.toLowerCase().indexOf('слил') >= 0 || message.content.toLowerCase().indexOf('потерял') >= 0) {
         message.channel.send(':pensive:');
+        return
     }
     if (message.content.indexOf('/help') === 0 || message.content.indexOf('/помощь') === 0) {
         handleHelpCommand(message);
+        return
     }
     if (message.content.indexOf('/stats') === 0) {
         handleStatsCommand(message);
+        return
     }
 });
 
