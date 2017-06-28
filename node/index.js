@@ -20,7 +20,22 @@ discord.on('message', message => {
         message.reply('Pong!');
     }
     if (message.content.toLowerCase() === 'привет') {
-        message.channel.send(`привет, ${message.author.username}\nпривет`);
+        message.channel.send(`привет, ${message.author.username}`);
+    }
+    if (message.content.toLowerCase().indexOf('я') === 0 || message.content.toLowerCase().indexOf(' я ') >= 0 || message.content.toLowerCase().indexOf('совет') >= 0) {
+        handleAdvice(message);
+    }
+    if (message.content.toLowerCase().indexOf('говнобот') >= 0) {
+        message.channel.send(':rage:');
+    }
+    if (message.content.toLowerCase().indexOf('бот') >= 0) {
+        message.channel.send(':smiley:');
+    }
+    if (message.content.toLowerCase().indexOf('проигралили') >= 0 || message.content.toLowerCase().indexOf('слили') >= 0 || message.content.toLowerCase().indexOf('заруинили') >= 0  || message.content.toLowerCase().indexOf('проигралил') >= 0 || message.content.toLowerCase().indexOf('слил') >= 0 ) {
+        message.channel.send(':pensive:');
+    }
+    if (message.content.indexOf('/help') === 0 || message.content.indexOf('/помощь') === 0) {
+        handleHelpCommand(message);
     }
     if (message.content.indexOf('/stats') === 0) {
         handleStatsCommand(message);
@@ -78,6 +93,31 @@ app.listen(HTTP_PORT, () => console.log(`Listening on port ${HTTP_PORT}!`));
 
 const request = require('request-promise')
 
+function handleAdvice(message) {
+    request({
+        url: `http://fucking-great-advice.ru/api/random/censored/`,
+        json: true
+    })
+        .then(function (data) {
+            let content= ''
+            content+= '' + data.text.replace(/&nbsp;/g, ' ').replace(/&#151;/g, '—')
+            message.channel.send(content);
+        })
+        .catch(function (err) {
+            message.reply('что-то пошло не так');
+        })
+    ;
+}
+
+function handleHelpCommand(message) {
+    let content= ''
+    content+= 'Помощь по командам:\n\n'
+    content+= '/stats — Посмотреть статистику по BattleTag, Например /stats oxiggy#2286\n'
+    content+= '"совет" — получить совет от бота\n'
+    content+= '"привет" — приветствие от бота\n'
+    message.channel.send(content);
+}
+
 function handleStatsCommand(message) {
     const param= message.content.replace('/stats', '').trim();
     if (!param || param.indexOf('#') === -1) {
@@ -100,6 +140,7 @@ function handleStatsCommand(message) {
                     content+= '— потрачено: '+ data.playtime.quickplay +'\n'
                     content+= '\n'
                     content+= 'Текущий сезон ранкеда:\n'
+                    content+= '— процент побед: '+ (data.games.competitive.won / (data.games.competitive.lost+data.games.competitive.won) * 100).toFixed(1)  + '% '  +'\n'
                     content+= '— побед: '+ data.games.competitive.won +'\n'
                     content+= '— поражений: '+ data.games.competitive.lost +'\n'
                     content+= '— ничьих: '+ data.games.competitive.draw +'\n'
