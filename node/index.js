@@ -40,6 +40,10 @@ discord.on('message', message => {
         message.channel.send(':pensive:');
         return
     }
+    if (message.content.toLowerCase().indexOf('ты кто?') >= 0) {
+        message.channel.send(':thinking_face:');
+        return
+    }
     if (message.content.indexOf('/help') === 0 || message.content.indexOf('/помощь') === 0) {
         handleHelpCommand(message);
         return
@@ -103,7 +107,7 @@ const request = require('request-promise')
 
 function handleAdvice(message) {
     request({
-        url: `http://fucking-great-advice.ru/api/random/censored/`,
+        url: `http://fucking-great-advice.ru/api/random`,
         json: true
     })
         .then(function (data) {
@@ -152,7 +156,10 @@ function handleStatsCommand(message) {
                     content+= '— побед: '+ data.games.competitive.won +'\n'
                     content+= '— поражений: '+ data.games.competitive.lost +'\n'
                     content+= '— ничьих: '+ data.games.competitive.draw +'\n'
-                    content+= '— потрачено: '+ data.playtime.competitive +''
+                    content+= '— потрачено: '+ data.playtime.competitive +'\n'
+                    content+= '\n'
+                    content+= '\n'
+                    content+= 'Ссылка: '+ 'https://www.overbuff.com/players/pc/' + battleTag[0] + '-' + battleTag[1] + '?mode=competitive ' +''
                     message.reply(content);
                 })
                 .catch(function () {
