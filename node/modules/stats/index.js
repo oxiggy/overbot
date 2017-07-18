@@ -2,7 +2,7 @@
 
 const request = require('request-promise');
 
-module.exports = function Stats(discord) {
+module.exports = function Stats({ discord }) {
 
     discord.on('message', message => {
         const content = message.content.toLowerCase();

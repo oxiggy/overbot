@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function Privet(discord) {
+module.exports = function Privet({ discord }) {
 
     discord.on('message', message => {
         const content= message.content.toLowerCase();

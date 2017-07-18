@@ -1,51 +1,24 @@
 'use strict';
+const App= require('koa');
+const AppLogger= require('koa-logger');
+const AppStatic= require('koa-static');
+const AppRouter= require('koa-router');
+const Discord = require('discord.js');
 
 const manifest= require('../package.json');
+const { HTTP_PORT, DISCORD_TOKEN }= process.env;
 
-
-
-// DISCORD CLIENT
-
-const DISCORD_TOKEN= process.env.DISCORD_TOKEN;
-
-const Discord = require('discord.js');
-const discord = new Discord.Client();
-
-discord.on('ready', () => {
-    console.log(`Logged in as ${discord.user.tag}!`);
-});
-
-discord.on('message', message => {
-    if (message.content === 'ping') {
-        message.reply('Pong!');
-        return
-    }
-});
-
-require('./modules/help')(discord);
-require('./modules/privet')(discord);
-require('./modules/random-advice')(discord);
-require('./modules/stats')(discord);
-
-discord.login(DISCORD_TOKEN);
-
-
-
-// HTTP SERVER
-
-const HTTP_PORT= process.env.HTTP_PORT;
-
-const App= require('koa')
-const AppLogger= require('koa-logger')
-const AppStatic= require('koa-static')
-const AppRouter= require('koa-router')
+// App
 
 const app = new App;
-const api = new AppRouter;
 
 app.use(AppStatic('./browser'));
 
 app.use(AppLogger());
+
+// Api
+
+const api = new AppRouter;
 
 api.get('/api/v1', async (context) => {
     context.body= {
@@ -70,6 +43,32 @@ api.get('/api/v1/process', async (context) => {
     };
 });
 
+// Discord
+
+const discord = new Discord.Client();
+
+discord.on('ready', () => {
+    console.log(`Logged in as ${discord.user.tag}!`);
+});
+
+discord.on('message', message => {
+    if (message.content === 'ping') {
+        message.reply('Pong!');
+        return
+    }
+});
+
+// Init modules
+
+require('./modules/help')({ app, api, discord });
+require('./modules/privet')({ app, api, discord });
+require('./modules/random-advice')({ app, api, discord });
+require('./modules/stats')({ app, api, discord });
+
+// Start
+
 app.use(api.routes());
 
 app.listen(HTTP_PORT, () => console.log(`Listening on port ${HTTP_PORT}!`));
+
+discord.login(DISCORD_TOKEN);

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function Help(discord) {
+module.exports = function Help({ discord }) {
 
     discord.on('message', message => {
         const content = message.content.toLowerCase();

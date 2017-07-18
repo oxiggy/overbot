@@ -2,7 +2,7 @@
 
 const request = require('request-promise');
 
-module.exports = function RandomAdvice(discord) {
+module.exports = function RandomAdvice({ discord }) {
 
     discord.on('message', message => {
         const content = message.content.toLowerCase();
