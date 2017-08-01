@@ -12,10 +12,6 @@ module.exports = function Privet({ discord }) {
             message.channel.send(':rage:');
             return
         }
-        if (content.indexOf('бот') >= 0) {
-            message.channel.send(':smiley:');
-            return
-        }
         if (content.indexOf('проиграл') >= 0 || content.indexOf('слил') >= 0 || content.indexOf('потерял') >= 0) {
             message.channel.send(':pensive:');
             return
