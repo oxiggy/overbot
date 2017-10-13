@@ -16,6 +16,7 @@ module.exports = function Help({ discord }) {
         content+= '/stats — Посмотреть статистику по BattleTag, Например /stats oxiggy#2286\n'
         content+= '"совет" — получить совет от бота\n'
         content+= '"привет" — приветствие от бота\n'
+        content+= '"бот, делать ли…?" — помощь с принятием решения\n'
         message.channel.send(content);
     }
 
