@@ -41,7 +41,7 @@ module.exports = function Stats({ discord }) {
                         content+= '— потрачено: '+ data.playtime.competitive +'\n'
                         content+= '\n'
                         content+= '\n'
-                        content+= 'Ссылка: '+ 'https://www.overbuff.com/players/pc/' + battleTag[0] + '-' + battleTag[1] + '?mode=competitive ' +''
+                        content+= 'Ссылка: '+ 'https://www.overbuff.com/players/pc/' + battleTag[0] + '-' + battleTag[1]
                         message.reply(content);
                     })
                     .catch(function () {
