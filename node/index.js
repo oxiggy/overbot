@@ -64,6 +64,7 @@ require('./modules/help')({ app, api, discord });
 require('./modules/privet')({ app, api, discord });
 require('./modules/random-advice')({ app, api, discord });
 require('./modules/random-answer')({ app, api, discord });
+require('./modules/random-pic')({ app, api, discord });
 require('./modules/stats')({ app, api, discord });
 
 // Start
