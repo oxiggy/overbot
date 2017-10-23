@@ -18,7 +18,12 @@ module.exports = function RandomAdvice({ discord }) {
         })
             .then(function (data) {
                 let content= ''
-                content+= '' + data.text.replace(/&nbsp;/g, ' ').replace(/&#151;/g, '—')
+                content+= '' + data.text
+                    .replace(/&nbsp;/g, ' ')
+                    .replace(/&#151;/g, '—')
+                    .replace(/&laquo;/g, '«')
+                    .replace(/&raquo;/g, '»')
+                ;
                 message.channel.send(content);
             })
             .catch(function (err) {
