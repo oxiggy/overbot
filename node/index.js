@@ -1,12 +1,13 @@
 'use strict';
-const App= require('koa');
-const AppLogger= require('koa-logger');
-const AppStatic= require('koa-static');
-const AppRouter= require('koa-router');
+
+const App = require('koa');
+const AppLogger = require('koa-logger');
+const AppStatic = require('koa-static');
+const AppRouter = require('koa-router');
 const Discord = require('discord.js');
 
-const manifest= require('../package.json');
-const { HTTP_PORT, DISCORD_TOKEN }= process.env;
+const manifest = require('../package.json');
+const { HTTP_PORT, DISCORD_TOKEN } = process.env;
 
 // App
 

@@ -10,7 +10,7 @@ module.exports = function Stats({ discord }) {
             handleStatsCommand(message);
             return
         }
-    })
+    });
 
     function handleStatsCommand(message) {
         const param= message.content.replace('/stats', '').trim();
@@ -52,4 +52,4 @@ module.exports = function Stats({ discord }) {
         }
     }
 
-}
+};

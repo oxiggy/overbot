@@ -9,7 +9,7 @@ module.exports = function RandomAdvice({ discord }) {
         if (content.indexOf('я') === 0 || content.indexOf(' я ') >= 0 || content.indexOf('совет') >= 0) {
             handleAdvice(message);
         }
-    })
+    });
 
     function handleAdvice(message) {
         request({
@@ -17,7 +17,7 @@ module.exports = function RandomAdvice({ discord }) {
             json: true
         })
             .then(function (data) {
-                let content= ''
+                let content= '';
                 content+= '' + data.text
                     .replace(/&nbsp;/g, ' ')
                     .replace(/&#151;/g, '—')
@@ -32,4 +32,4 @@ module.exports = function RandomAdvice({ discord }) {
         ;
     }
 
-}
+};

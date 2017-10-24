@@ -1,7 +1,5 @@
 'use strict';
 
-const request = require('request-promise');
-
 module.exports = function RandomAnswer({ discord }) {
 
     discord.on('message', message => {
@@ -9,9 +7,9 @@ module.exports = function RandomAnswer({ discord }) {
         if (content.indexOf('бот') >= 0 && (content.indexOf('?') >= 0 || content.indexOf('ответь') >= 0)) {
             handle8ball(message);
         }
-    })
+    });
 
-    var answers = [
+    const answers = [
         { message: "Не сейчас"},
         { message: "Не делай этого"},
         { message: "Никаких сомнений"},
@@ -52,4 +50,4 @@ module.exports = function RandomAnswer({ discord }) {
         return Math.floor(Math.random() * (max - min + 1)) + min
     }
 
-}
+};
