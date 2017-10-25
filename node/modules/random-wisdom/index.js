@@ -24,6 +24,7 @@ module.exports = function RandomWisdom({ discord }) {
                     .replace(/&laquo;/g, '«')
                     .replace(/&raquo;/g, '»')
                 ;
+                content+= '\n'+ data.quoteAuthor;
                 message.channel.send(content);
             })
             .catch(function (err) {
