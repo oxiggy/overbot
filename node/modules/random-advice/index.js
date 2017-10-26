@@ -24,6 +24,11 @@ module.exports = function RandomAdvice({ discord }) {
                     .replace(/&laquo;/g, '«')
                     .replace(/&raquo;/g, '»')
                 ;
+                if (message.content.match(/<@!?(\d+)>/g)) {
+                    let mentions = '';
+                    message.content.match(/<@!?(\d+)>/g).forEach((mention) => mentions += mention + ' ');
+                    content= mentions + content;
+                }
                 message.channel.send(content);
             })
             .catch(function (err) {
