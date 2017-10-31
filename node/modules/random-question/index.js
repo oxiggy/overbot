@@ -14,6 +14,9 @@ module.exports = function RandomPic({ discord }) {
         if (activeQuestion) {
             if (checkAnswer(activeQuestion, message)) {
                 message.channel.send('да');
+                if (activeQuestion.award) {
+                    message.channel.send(`бот, ${activeQuestion.award} нефти <@${message.author.id}>`);
+                }
             } else {
                 message.channel.send('не');
             }
