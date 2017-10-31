@@ -9,6 +9,9 @@ module.exports = function Users({ discord }) {
         if (content.indexOf('/users') === 0) {
             handleUsersCommand(message);
         }
+        if (content.indexOf('бот') >= 0 && content.indexOf('баланс') >= 0) {
+            handleUserBalance(message);
+        }
     });
 
     function handleUsersCommand(message) {
@@ -32,6 +35,14 @@ module.exports = function Users({ discord }) {
             })
         ;
         message.channel.send(content);
+    }
+
+    function handleUserBalance(message) {
+        const author= message.author;
+        const authorData= USERS[author.id]= (USERS[author.id] || {
+            balance: 0,
+        });
+        message.reply(authorData.balance);
     }
 
 };
