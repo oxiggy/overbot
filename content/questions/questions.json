@@ -2,21 +2,25 @@
   {
     "message": "Сколько будет 2 + 2?",
     "answer": "4",
+    "timeout": 5000,
     "award": 10
   },
   {
     "message": "Сколько хп у Ханны Сон?",
     "answer": "150",
+    "timeout": 10000,
     "award": 100
   },
   {
     "message": "Сколько хп у Дивы?",
     "answer": "400",
+    "timeout": 10000,
     "award": 100
   },
   {
     "message": "Умеет ли Ханна Сон программировать?",
     "answer": "да",
+    "timeout": 10000,
     "award": 100
   }
 ]

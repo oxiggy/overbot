@@ -62,8 +62,12 @@ module.exports = function Users({ discord }) {
         }
         sourceUserData.balance-= amount;
         targetUserData.balance+= amount;
-        message.channel.send(`<@${sourceUserId}> передает <@${targetUserId}> **${amount} нефти**`);
-        fs.writeFile('content/users/users.json', JSON.stringify(USERS, null, 2));
+        fs.writeFile('content/users/users.json', JSON.stringify(USERS, null, 2), (err) => {
+            if (err) {
+                throw err
+            }
+            message.channel.send(`<@${sourceUserId}> передает <@${targetUserId}> **${amount} нефти**`);
+        });
     }
 
     function getUserData(userId) {
