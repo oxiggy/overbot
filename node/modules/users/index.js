@@ -10,6 +10,11 @@ module.exports = function Users({ discord }) {
         if (content.indexOf('/users') === 0) {
             handleUsersCommand(message);
         }
+        if (content.indexOf('бот') >= 0 && content.indexOf('нефть') >= 0) {
+            message.reply(`храни нефть в сберегательной банке!`, {
+                file: 'content/users/bank.jpg',
+            })
+        }
         if (content.indexOf('бот') >= 0 && content.indexOf('баланс') >= 0) {
             handleUserBalance(message);
         }
