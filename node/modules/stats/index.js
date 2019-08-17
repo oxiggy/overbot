@@ -22,7 +22,7 @@ module.exports = function Stats({ discord }) {
                 message.reply('неверный формат BattleTag');
             } else {
                 request({
-                    uri: `http://ow-api.herokuapp.com/profile/pc/eu/${battleTag[0]}-${battleTag[1]}'`,
+                    uri: `http://api.overwatchy.com/profile/pc/eu/${battleTag[0]}-${battleTag[1]}`,
                     json: true
                 })
                     .then(function (data) {
