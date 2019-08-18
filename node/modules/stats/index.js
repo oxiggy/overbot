@@ -1,6 +1,7 @@
 'use strict';
 
 const request = require('request-promise');
+const RichEmbed = require("discord.js").RichEmbed;
 
 module.exports = function Stats({ discord }) {
 
@@ -26,23 +27,26 @@ module.exports = function Stats({ discord }) {
                     json: true
                 })
                     .then(function (data) {
-                        let content= ''
-                        content+= '' + data.username + ' (' + data.level + ' уровень, '+ data.competitive.rank +' ранг)\n'
-                        content+= '\n'
-                        content+= 'Быстрые игры:\n'
-                        content+= '— побед: '+ data.games.quickplay.won +'\n'
-                        content+= '— потрачено: '+ data.playtime.quickplay +'\n'
-                        content+= '\n'
-                        content+= 'Текущий сезон ранкеда:\n'
-                        content+= '— процент побед: '+ (data.games.competitive.won / (data.games.competitive.lost+data.games.competitive.won) * 100).toFixed(1)  + '% '  +'\n'
-                        content+= '— побед: '+ data.games.competitive.won +'\n'
-                        content+= '— поражений: '+ data.games.competitive.lost +'\n'
-                        content+= '— ничьих: '+ data.games.competitive.draw +'\n'
-                        content+= '— потрачено: '+ data.playtime.competitive +'\n'
-                        content+= '\n'
-                        content+= '\n'
-                        content+= 'Ссылка: '+ 'https://www.overbuff.com/players/pc/' + battleTag[0] + '-' + battleTag[1]
-                        message.reply(content);
+						let content = new RichEmbed();
+                        content.setAuthor(message.member.nickname === null ? message.author.username : message.member.nickname, message.author.avatarURL);
+                        content.setTitle(data.username + ' (' + data.level + ' уровень)');
+                        content.addField("Рейтинг", `
+						— Танки: ${data.competitive.tank.rank === null ? 'Не откалиброван' : data.competitive.tank.rank}
+						— ДД: ${data.competitive.damage.rank === null ? 'Не откалиброван' : data.competitive.damage.rank}
+						— Сапорты: ${data.competitive.support.rank === null ? 'Не откалиброван' : data.competitive.support.rank}
+						`, false);
+                        content.addField("Быстрые игры", `— побед: ${data.games.quickplay.won}\n— потрачено: ${data.playtime.quickplay}`, false);
+                        content.addField("Текущий сезон ранкеда:", `
+                        — процент побед: ${(data.games.competitive.won / (data.games.competitive.lost + data.games.competitive.won) * 100).toFixed(1)}%
+                        — побед: ${data.games.competitive.won}
+						— поражений: ${data.games.competitive.lost}
+						— ничьих: ${data.games.competitive.draw}
+						— потрачено: ${data.playtime.competitive}
+                        `, false);
+                        content.addField(`Ссылка`, `https://www.overbuff.com/players/pc/${battleTag[0]}-${battleTag[1]}`, false);
+                        content.setColor('#d6740b');
+                        content.setThumbnail(data.portrait);
+                        message.channel.send(content);
                     })
                     .catch(function () {
                         message.reply('что-то пошло не так');
